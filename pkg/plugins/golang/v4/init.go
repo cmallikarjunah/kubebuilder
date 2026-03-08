@@ -64,12 +64,17 @@ type initSubcommand struct {
 func (p *initSubcommand) UpdateMetadata(cliMeta plugin.CLIMetadata, subcmdMeta *plugin.SubcommandMetadata) {
 	p.commandName = cliMeta.CommandName
 
-	subcmdMeta.Description = `Initialize a new project including the following files:
-  - a "go.mod" with project dependencies
-  - a "PROJECT" file that stores project configuration
-  - a "Makefile" with several useful make targets for the project
-  - several YAML files for project deployment under the "config" directory
-  - a "cmd/main.go" file that creates the manager that will run the project controllers
+	subcmdMeta.Description = `Initialize a new project within the current directory.
+Following files will be generated automatically:
+  - go.mod: Go module with project dependencies
+  - PROJECT: file that stores project configuration
+  - Makefile: provides useful make targets for the project
+  - config/: Kubernetes manifests for deployment
+  - cmd/main.go: controller manager entry point
+  - Dockerfile: build controller manager container image
+  - test/: unit tests for the project
+  - hack/: contains licensing boilerplate.
+
 
 Required flags:
   --domain: Domain for your APIs (e.g., example.org creates crew.example.org for API groups)
